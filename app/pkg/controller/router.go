@@ -14,4 +14,10 @@ func Setup(r *gin.RouterGroup) {
 		users.PATCH("/:id", u.UpdateUser)
 		users.DELETE("/:id", u.DeleteUser)
 	}
+	items := r.Group("/items")
+	{
+	i := ItemController{}
+	items.POST("", i.CreateItem)
+	items.GET("", i.Index)
+	}
 }

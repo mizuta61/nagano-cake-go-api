@@ -19,5 +19,6 @@ func Setup(r *gin.RouterGroup) {
 	i := ItemController{}
 	items.POST("", i.CreateItem)
 	items.GET("", i.Index)
+	items.GET("/:id", i.GetItem)
 	}
 }

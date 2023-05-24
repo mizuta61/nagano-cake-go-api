@@ -25,8 +25,14 @@ func CreateItem(db *gorm.DB, item *Item) (*Item, error) {
 
 func NewItem(name string, introduction string, price int) *Item {
 	return &Item{
-		Name: name,
+		Name:         name,
 		Introduction: introduction,
-		Price: price,
+		Price:        price,
 	}
+}
+
+func GetItemById(db *gorm.DB, ID int) (*Item, error) {
+	item := Item{}
+	result := db.First(&item, ID)
+	return &item, result.Error
 }

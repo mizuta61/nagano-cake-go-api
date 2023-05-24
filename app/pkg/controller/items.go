@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"strconv"
+
 	"github.com/fuhiz/docker-go-sample/app/pkg/connecter"
 	"github.com/fuhiz/docker-go-sample/app/pkg/model"
 	"github.com/gin-gonic/gin"
@@ -39,5 +41,16 @@ func (*ItemController) CreateItem(c *gin.Context) {
 		c.JSON(400, gin.H{"error": "item create failed"})
 	}
 
+	c.JSON(200, gin.H{"item": item})
+}
+
+func (*ItemController) GetItem(c *gin.Context) {
+	ID := c.Params.ByName("id")
+	itemID, _ := strconv.Atoi(ID)
+	item, err := model.GetItemById(connecter.DB(), itemID)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "item not found"})
+		return
+	}
 	c.JSON(200, gin.H{"item": item})
 }

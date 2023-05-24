@@ -20,5 +20,6 @@ func Setup(r *gin.RouterGroup) {
 	items.POST("", i.CreateItem)
 	items.GET("", i.Index)
 	items.GET("/:id", i.GetItem)
+	items.PATCH("/:id", i.UpdateItem)
 	}
 }

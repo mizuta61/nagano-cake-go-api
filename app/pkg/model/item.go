@@ -36,3 +36,8 @@ func GetItemById(db *gorm.DB, ID int) (*Item, error) {
 	result := db.First(&item, ID)
 	return &item, result.Error
 }
+
+func (item *Item) Update(db *gorm.DB, param map[string]interface{}) (*Item, error) {
+	result := db.Model(&item).Updates(param)
+	return item, result.Error
+}

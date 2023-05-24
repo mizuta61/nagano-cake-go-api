@@ -14,6 +14,7 @@ type ItemParam struct {
 	Name         string `json:"name"`
 	Price        int    `json:"price"`
 	Introduction string `json:"introduction"`
+	IsActive     bool   `json:"is_active"`
 }
 
 func (*ItemController) Index(c *gin.Context) {
@@ -50,6 +51,33 @@ func (*ItemController) GetItem(c *gin.Context) {
 	item, err := model.GetItemById(connecter.DB(), itemID)
 	if err != nil {
 		c.JSON(400, gin.H{"error": "item not found"})
+		return
+	}
+	c.JSON(200, gin.H{"item": item})
+}
+
+func (*ItemController) UpdateItem(c *gin.Context) {
+	ID := c.Params.ByName("id")
+	itemID, _ := strconv.Atoi(ID)
+	item, err := model.GetItemById(connecter.DB(), itemID)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "item not found"})
+		return
+	}
+	var param ItemParam
+	if err := c.BindJSON(&param); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+	updateParam := map[string]interface{}{
+		"name":         param.Name,
+		"price":        param.Price,
+		"introduction": param.Introduction,
+		"is_active":    param.IsActive,
+	}
+	_, err = item.Update(connecter.DB(), updateParam)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "item update failed"})
 		return
 	}
 	c.JSON(200, gin.H{"item": item})

@@ -50,3 +50,14 @@ func (*GenreController) UpdateGenre(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{"genre": genre})
 }
+
+func (*GenreController) GetGenre(c *gin.Context) {
+	ID := c.Params.ByName("id")
+	genreID, _ := strconv.Atoi(ID)
+	genre, err := model.GetGenreById(connecter.DB(), genreID)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "genre not found"})
+		return
+	}
+	c.JSON(200, gin.H{"genre": genre})
+}

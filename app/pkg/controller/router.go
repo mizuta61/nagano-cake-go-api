@@ -27,5 +27,6 @@ func Setup(r *gin.RouterGroup) {
 		g := GenreController{}
 		genres.POST("", g.CreateGenre)
 		genres.PATCH("/:id", g.UpdateGenre)
+		genres.GET("/:id", g.GetGenre)
 	}
 }

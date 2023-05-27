@@ -19,3 +19,14 @@ func CreateGenre(db *gorm.DB, genre *Genre) (*Genre, error) {
 	result := db.Create(&genre)
 	return genre, result.Error
 }
+
+func GetGenreById(db *gorm.DB, ID int) (*Genre, error) {
+	genre := Genre{}
+	result := db.First(&genre, ID)
+	return &genre, result.Error
+}
+
+func (genre *Genre) Update(db *gorm.DB, param map[string]interface{}) (*Genre, error) {
+	result := db.Model(&genre).Updates(param)
+	return genre, result.Error
+}

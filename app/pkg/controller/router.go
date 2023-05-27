@@ -16,15 +16,16 @@ func Setup(r *gin.RouterGroup) {
 	}
 	items := r.Group("/items")
 	{
-	i := ItemController{}
-	items.POST("", i.CreateItem)
-	items.GET("", i.Index)
-	items.GET("/:id", i.GetItem)
-	items.PATCH("/:id", i.UpdateItem)
+		i := ItemController{}
+		items.POST("", i.CreateItem)
+		items.GET("", i.Index)
+		items.GET("/:id", i.GetItem)
+		items.PATCH("/:id", i.UpdateItem)
 	}
 	genres := r.Group("/genres")
 	{
 		g := GenreController{}
 		genres.POST("", g.CreateGenre)
+		genres.PATCH("/:id", g.UpdateGenre)
 	}
 }

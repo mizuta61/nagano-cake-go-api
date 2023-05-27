@@ -61,3 +61,12 @@ func (*GenreController) GetGenre(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{"genre": genre})
 }
+
+func (*GenreController) Index(c *gin.Context) {
+	genres, err := model.GetGenres(connecter.DB())
+	if err != nil {
+		c.JSON(400, gin.H{"error": "genre search failed"})
+		return
+	}
+	c.JSON(200, gin.H{"genres": genres})
+}

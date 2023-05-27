@@ -30,3 +30,9 @@ func (genre *Genre) Update(db *gorm.DB, param map[string]interface{}) (*Genre, e
 	result := db.Model(&genre).Updates(param)
 	return genre, result.Error
 }
+
+func GetGenres(db *gorm.DB) ([]*Genre, error) {
+	genres := []*Genre{}
+	result := db.Find(&genres)
+	return genres, result.Error
+}

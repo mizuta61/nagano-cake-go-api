@@ -3,5 +3,6 @@ CREATE TABLE `genres` (
   `name` varchar(50) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `deleted_at` datetime,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8mb4;
